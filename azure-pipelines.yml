@@ -12,10 +12,14 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '18.x'
   displayName: 'Install Node.js'
+- checkout: self
+  persistCredentials: true
 
 - script: |
+    git config user.email "massoumeharmonie@gmail.com" 
+    git config user.name "audreymengue"
     npm install
-    npm run build
+    npm run deploy -- -r https://$(GITHUB_PAT)@github.com/audreymengue/azugsdemo1
   displayName: 'npm install and build'
